@@ -33,3 +33,4 @@ build/
 # Cache
 .cache/
 pip-wheel-metadata/
+myenv/
