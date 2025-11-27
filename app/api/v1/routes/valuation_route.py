@@ -10,7 +10,7 @@ from app.agents.valuation_engine import (
     DemandSignal,
     ProductValuation
 )
-
+from app.models.valuation_models import Alg6Input,Alg7Input,AlgResponse,AlgorithmConfig
 router = APIRouter(prefix="/valuation", tags=["Valuation Algorithms"])
 
 # initialize engine + mock DB
@@ -66,11 +66,14 @@ def run_alg5(base_price: float, demand: DemandSignal, curve: BondingCurveParams)
 
 
 # --------------------------- ALG-6: Yield Factor ---------------------------
-@router.post("/alg6/yield-factor")
-def run_alg6(staking: StakingConfig, reward: RewardPolicyParams, behavior_score: float):
-    factor = engine._model_token_yield_as_factor(staking, reward, behavior_score)
+# @router.post("/alg6/yield-factor")
+# def run_alg6(staking: StakingConfig, reward: RewardPolicyParams, behavior_score: float):
+#     factor = engine._model_token_yield_as_factor(staking, reward, behavior_score)
+#     return {"algorithm": "ALG-6 Yield Factor", "yield_factor": factor}
+@router.post("/alg6/yield-factor") 
+def run_alg6(input_data: Alg6Input): 
+    factor = engine._model_token_yield_as_factor( input_data.staking, input_data.reward, input_data.behavior_score ) 
     return {"algorithm": "ALG-6 Yield Factor", "yield_factor": factor}
-
 
 # --------------------------- ALG-7: Hybrid Composite ---------------------------
 @router.post("/alg7/hybrid")
