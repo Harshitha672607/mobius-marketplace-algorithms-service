@@ -3,7 +3,6 @@ from app.core.config import settings
 
 class ValuationService:
     def __init__(self):
-        # Load PI layer according to env
         if settings.pi_layer_mode == "mock":
             self.pi = MockPILayer()
         else:
